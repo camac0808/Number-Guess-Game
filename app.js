@@ -10,7 +10,7 @@ const guessArea = document.getElementById("guess-area");
 const levelArea = document.getElementById("level-area");
 const RANGENUMBER = 50;
 const LEVEL = 1;
-let enter = true;
+let enterPress = true;
 let history = [];
 let chance = 5;
 
@@ -23,17 +23,19 @@ pickNumber();
 // 레벨단계 표현
 levelArea.innerHTML = `LEVEL : ${LEVEL}`;
 
-
 // 게임 실행
 function play() {
   let userValue = userInput.value;
+  // 1~100 범위밖 숫자 입력했을때
   if (userValue < 1 || userValue > RANGENUMBER) {
     resultArea.innerHTML = `1부터 100사이의 값을 입력해 주세요! ${chance}번 남았습니다`;
+    userInput.value = "";
     return;
   }
 
   if (history.includes(userValue)) {
     resultArea.innerHTML = `같은 숫자를 입력하셨습니다. ${chance}번 남았습니다`;
+    userInput.value = "";
     return;
   }
   chance--;
@@ -45,16 +47,16 @@ function play() {
   } else {
     resultArea.innerHTML = `CORRECT!!`;
     playButton.disabled = true;
-    enter = false;
+    enterPress = false;
   }
 
   history.push(userValue);
   guessArea.innerHTML = `Your Guess Number is: ${history}`;
 
   if (chance < 1) {
-    resultArea.innerHTML = `GAME OVER... THE NUMBER WAS ${computerNum}.. TRY AGAIN`;
+    resultArea.innerHTML = `GAME OVER... THE NUMBER WAS <span>${computerNum}</span>.. TRY AGAIN`;
     playButton.disabled = true;
-    enter = false;
+    enterPress = false;
   }
   userInput.value = "";
 }
@@ -62,9 +64,9 @@ function play() {
 // 엔터키 쳤을때 게임실행
 function playKeyUp(event) {
   if (event.keyCode == 13) {
-    if (enter == true) {
+    if (enterPress) {
       play();
-    } else if (enter == false) {
+    } else {
       event.preventDefault();
     }
   }
@@ -73,11 +75,11 @@ function playKeyUp(event) {
 // reset 하기
 function reset() {
   playButton.disabled = false;
-  enter = true;
+  enterPress = true;
   chance = 5;
   history = [];
-  userInput.value = "";
   pickNumber();
+  userInput.value = "";
   resultArea.innerHTML = `숫자를 맞춰보세요 1부터 ${RANGENUMBER}까지`;
   guessArea.innerHTML = "Your Guess Number is:";
 }
