@@ -2,6 +2,13 @@ body {
   text-align: center;
 }
 
+.container {
+  padding: 50px;
+  width: 500px;
+  margin: 50px auto;
+  box-shadow: rgba(52, 56, 60, 1) 0px 1px 10px 0px;
+}
+
 button {
   padding: 5px 25px;
   border: none;

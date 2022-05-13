@@ -8,18 +8,22 @@ const resultArea = document.getElementById("result-area");
 const resetButton = document.getElementById("reset-button");
 const guessArea = document.getElementById("guess-area");
 const levelArea = document.getElementById("level-area");
-const RANGENUMBER = 50;
-const LEVEL = 1;
+
 let enterPress = true;
 let history = [];
-let chance = 5;
+
+let RANGENUMBER = 50;
+let LEVEL = 1;
+let CHANCE = 5 * LEVEL;
 
 // 랜덤값
 function pickNumber() {
-  computerNum = Math.floor(Math.random() * RANGENUMBER) + 1;
+  computerNum = Math.floor(Math.random() * RANGENUMBER * LEVEL) + 1;
+  resultArea.innerHTML = `1부터 ${RANGENUMBER * LEVEL}까지 숫자를 맞춰보세요`;
   console.log(computerNum);
 }
 pickNumber();
+
 // 레벨단계 표현
 levelArea.innerHTML = `LEVEL : ${LEVEL}`;
 
@@ -27,33 +31,46 @@ levelArea.innerHTML = `LEVEL : ${LEVEL}`;
 function play() {
   let userValue = userInput.value;
   // 1~100 범위밖 숫자 입력했을때
-  if (userValue < 1 || userValue > RANGENUMBER) {
-    resultArea.innerHTML = `1부터 100사이의 값을 입력해 주세요! ${chance}번 남았습니다`;
+  if (userValue < 1 || userValue > RANGENUMBER * LEVEL) {
+    resultArea.innerHTML = `1부터 100사이의 값을 입력해 주세요! ${CHANCE}번 남았습니다`;
     userInput.value = "";
     return;
   }
-
+  // 중복된 숫자를 입력했을 경우
   if (history.includes(userValue)) {
-    resultArea.innerHTML = `같은 숫자를 입력하셨습니다. ${chance}번 남았습니다`;
+    resultArea.innerHTML = `같은 숫자를 입력하셨습니다. ${CHANCE}번 남았습니다`;
     userInput.value = "";
     return;
   }
-  chance--;
-
+  // 기회 하나씩 차감
+  CHANCE--;
+  // 채점
   if (userValue < computerNum) {
-    resultArea.innerHTML = `UP!! ${chance}번 기회가 남았습니다`;
+    resultArea.innerHTML = `UP!! ${CHANCE}번 기회가 남았습니다`;
   } else if (userValue > computerNum) {
-    resultArea.innerHTML = `DOWN!! ${chance}번 기회가 남았습니다`;
+    resultArea.innerHTML = `DOWN!! ${CHANCE}번 기회가 남았습니다`;
   } else {
     resultArea.innerHTML = `CORRECT!!`;
-    playButton.disabled = true;
-    enterPress = false;
+    userInput.value = "";
+    if (LEVEL === 3) {
+      resultArea.innerHTML = `CONGRATULATION! YOU WON!!`;
+      playButton.disabled = true;
+      enterPress = false;
+    } else {
+      LEVEL += 1;
+      CHANCE = 5 * LEVEL;
+      levelArea.innerHTML = `LEVEL : ${LEVEL}`;
+      pickNumber();
+    }
+    return;
   }
 
+  // guess한 기록
   history.push(userValue);
   guessArea.innerHTML = `Your Guess Number is: ${history}`;
 
-  if (chance < 1) {
+  // 못맞출 시
+  if (CHANCE < 1) {
     resultArea.innerHTML = `GAME OVER... THE NUMBER WAS <span>${computerNum}</span>.. TRY AGAIN`;
     playButton.disabled = true;
     enterPress = false;
@@ -76,11 +93,13 @@ function playKeyUp(event) {
 function reset() {
   playButton.disabled = false;
   enterPress = true;
-  chance = 5;
+  CHANCE = 5;
+  LEVEL = 1;
   history = [];
   pickNumber();
   userInput.value = "";
-  resultArea.innerHTML = `숫자를 맞춰보세요 1부터 ${RANGENUMBER}까지`;
+  levelArea.innerHTML = `LEVEL : ${LEVEL}`;
+  resultArea.innerHTML = `숫자를 맞춰보세요 1부터 ${RANGENUMBER * LEVEL}까지`;
   guessArea.innerHTML = "Your Guess Number is:";
 }
 
