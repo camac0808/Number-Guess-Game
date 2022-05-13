@@ -4,8 +4,11 @@ body {
 
 #result-area {
   margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 #guess-area {
   margin-top: 10px;
+  font-size: 20px;
 }

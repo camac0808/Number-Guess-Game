@@ -62,11 +62,12 @@ function playKeyUp(event) {
 
 // reset 하기
 function reset() {
+  chance = 5;
   history = [];
   userInput.value = "";
   pickNumber();
   resultArea.innerHTML = "숫자를 맞춰보세요 1부터 100까지";
-  chance = 5;
+  guessArea.innerHTML = "Your Guess Number is:";
 }
 
 playButton.addEventListener("click", play);
