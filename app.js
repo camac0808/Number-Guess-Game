@@ -19,7 +19,7 @@ let CHANCE = 5 * LEVEL;
 // 랜덤값
 function pickNumber() {
   computerNum = Math.floor(Math.random() * RANGENUMBER * LEVEL) + 1;
-  resultArea.innerHTML = `1부터 ${RANGENUMBER * LEVEL}까지 숫자를 맞춰보세요`;
+
   console.log(computerNum);
 }
 pickNumber();
@@ -32,7 +32,7 @@ function play() {
   let userValue = userInput.value;
   // 1~100 범위밖 숫자 입력했을때
   if (userValue < 1 || userValue > RANGENUMBER * LEVEL) {
-    resultArea.innerHTML = `1부터 100사이의 값을 입력해 주세요! ${CHANCE}번 남았습니다`;
+    resultArea.innerHTML = `1부터 ${RANGENUMBER * LEVEL}사이의 값을 입력해 주세요! ${CHANCE}번 남았습니다`;
     userInput.value = "";
     return;
   }
@@ -50,7 +50,6 @@ function play() {
   } else if (userValue > computerNum) {
     resultArea.innerHTML = `DOWN!! ${CHANCE}번 기회가 남았습니다`;
   } else {
-    resultArea.innerHTML = `CORRECT!!`;
     userInput.value = "";
     if (LEVEL === 3) {
       resultArea.innerHTML = `CONGRATULATION! YOU WON!!`;
@@ -60,6 +59,7 @@ function play() {
       LEVEL += 1;
       CHANCE = 5 * LEVEL;
       levelArea.innerHTML = `LEVEL : ${LEVEL}`;
+      resultArea.innerHTML = `CORRECT!! 1부터 ${RANGENUMBER * LEVEL}사이의 값을 입력해 주세요! ${CHANCE}번 남았습니다`;
       pickNumber();
     }
     return;
@@ -101,6 +101,11 @@ function reset() {
   levelArea.innerHTML = `LEVEL : ${LEVEL}`;
   resultArea.innerHTML = `숫자를 맞춰보세요 1부터 ${RANGENUMBER * LEVEL}까지`;
   guessArea.innerHTML = "Your Guess Number is:";
+}
+
+//레벨업 함수
+function levelUp() {
+  
 }
 
 playButton.addEventListener("click", play);
