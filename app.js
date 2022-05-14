@@ -44,7 +44,7 @@ function play() {
   }
   // 기회 하나씩 차감
   CHANCE--;
-  // 채점
+  // 1~100 사이 숫자 쳤을때 
   if (userValue < computerNum) {
     resultArea.innerHTML = `UP!! ${CHANCE}번 기회가 남았습니다`;
   } else if (userValue > computerNum) {
