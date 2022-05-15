@@ -1,31 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Dongle&family=Gothic+A1:wght@500&family=Noto+Serif:ital,wght@0,700;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dongle&family=Gothic+A1:wght@500&family=Noto+Serif:ital,wght@0,700;1,700&display=swap");
 
 body {
-  font-family: 'Gothic A1', sans-serif;
+  font-family: "Gothic A1", sans-serif;
   text-align: center;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.image-box {
-  position: absolute;
-  background: url("updown.png") center;
-  background-repeat: repeat;
-  background-size: 150px;
-  width: 100%;
-  height: 100%;
+@media screen and (max-width: 350px) {
+  .container {
+    background-color: aquamarine;
+  }
 }
+
 
 .container {
-  background-color: rgb(250, 245, 239);
   padding: 50px;
-  width: 500px;
-  margin: 100px auto;
   box-shadow: rgba(52, 56, 60, 1) 0px 1px 10px 0px;
   border-radius: 10px;
+  border: 10px solid white;
 }
 
-.game-title{
+.game-title {
   color: brown;
+}
+
+h1 {
+  font-size: 5vw;
 }
 
 button {
@@ -33,20 +37,21 @@ button {
   border: none;
   background-color: burlywood;
   border-radius: 15px;
-  font-size: 15px;
+  font-size: 2vw;
   font-weight: bold;
-  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: rgba(20, 20, 20, 0.5) 2px 2px 5px 0px;
 }
 
 #result-area {
   margin-bottom: 20px;
   font-size: 20px;
   font-weight: bold;
+  font-size: 3vw;
 }
 
 #guess-area {
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 3vw;
 }
 
 #user-input {
@@ -57,7 +62,7 @@ button {
   background-color: bisque;
   border: 1px solid gray;
   margin-right: 10px;
-  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: rgba(20, 20, 20, 0.5) 2px 2px 5px 0px;
 }
 
 #user-input[type="number"]::-webkit-outer-spin-button,
@@ -68,5 +73,4 @@ button {
 
 span {
   color: crimson;
-  font-size: 30px;
 }
