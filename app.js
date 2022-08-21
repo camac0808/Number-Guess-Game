@@ -80,7 +80,7 @@ function play() {
 
 // 엔터키 쳤을때 게임실행
 function playKeyUp(event) {
-  if (event.keyCode == 13) {
+  if (e.key == "Enter") {
     if (enterPress) {
       play();
     } else {
